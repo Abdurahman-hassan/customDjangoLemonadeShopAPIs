@@ -57,9 +57,7 @@ class UserDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
 
     def destroy(self, request, *args, **kwargs):
         user = self.get_object()  # DRF method to fetch the object based on URL parameters
-        print("user is", user)
         remove_user_from_group(user.id, 'Delivery-crew')
-
         # Return a response indicating the user was successfully removed from the group
         return Response({"status": f"User {user.username} removed from the Delivery-crew group"},
                         status=status.HTTP_200_OK)
