@@ -146,12 +146,12 @@ REST_FRAMEWORK = {
     # ],
 }
 
-# DJOSER = {
-#     "USER_ID_FIELD": "id",
-#     "PASSWORD_RESET_CONFIRM_URL": "password/reset/confirm/{uid}/{token}",
-#     # "LOGIN_FIELD": "email",
-#     # "USER_CREATE_PASSWORD_RETYPE": True,
-# }
+DJOSER = {
+    "USER_ID_FIELD": "id",
+    "PASSWORD_RESET_CONFIRM_URL": "password/reset/confirm/{uid}/{token}",
+    'ACTIVATION_URL': 'activate/{uid}/{token}',
+    'SEND_ACTIVATION_EMAIL': True,
+}
 
 # SIMPLE_JWT = {
 #     'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
@@ -173,7 +173,6 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/
 
@@ -189,4 +188,4 @@ INTERNAL_IPS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
