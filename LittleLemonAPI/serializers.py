@@ -7,7 +7,7 @@ class UserMembershipSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ["username"]
+        fields = ["id", "username"]
 
     def validate_username(self, value):
         # Ensure the user exists
