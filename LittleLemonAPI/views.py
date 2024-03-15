@@ -1,12 +1,13 @@
 from django.contrib.auth.models import User
-from rest_framework import generics, status
+from rest_framework import generics, status, permissions
 from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 
 from LittleLemonAPI.permissions import IsManagerUser
-from LittleLemonAPI.serializers import UserMembershipSerializer
+from LittleLemonAPI.serializers import UserMembershipSerializer, MenuItemSerializer
 from LittleLemonAPI.utils import get_group_users, add_user_to_group, remove_user_from_group
+from .models import MenuItem
 
 
 class ManagerViewSet(viewsets.ModelViewSet):
@@ -61,3 +62,28 @@ class UserDetailAPIView(generics.RetrieveUpdateDestroyAPIView):
         # Return a response indicating the user was successfully removed from the group
         return Response({"status": f"User {user.username} removed from the Delivery-crew group"},
                         status=status.HTTP_200_OK)
+
+
+class MenuItemList(generics.ListCreateAPIView):
+    queryset = MenuItem.objects.all()
+    serializer_class = MenuItemSerializer
+
+    def get_permissions(self):
+        if self.request.method in ['POST', 'PUT', 'PATCH', 'DELETE']:
+            self.permission_classes = [IsManagerUser, ]
+        else:
+            self.permission_classes = [permissions.AllowAny, ]
+        return super(MenuItemList, self).get_permissions()
+
+
+class MenuItemDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = MenuItem.objects.all()
+    serializer_class = MenuItemSerializer
+    lookup_field = 'id'
+
+    def get_permissions(self):
+        if self.request.method in ['POST', 'PUT', 'PATCH', 'DELETE']:
+            self.permission_classes = [IsManagerUser, ]
+        else:
+            self.permission_classes = [permissions.AllowAny, ]
+        return super(MenuItemDetail, self).get_permissions()
