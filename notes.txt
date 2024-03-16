@@ -1,0 +1,17 @@
+superusername = admin
+superpassword = admin123123
+
+delevery users = mohamed-delevery
+delevery password = md123123
+
+manager users = Abdo
+manager password = abdo123123
+
+customer users = mahmoudfawzy
+customer password = mf123123
+
+customer users = mahmoudmohamed
+customer password = mm123123
+
+customer users = galaldiploma
+customer password = gd123123
